@@ -94,19 +94,8 @@ class HTTPHelper:
     def get_api_url(self, endpoint):
         return self.api_base_url + endpoint
 
-    #    
-    # Setup request
+ 
     # 
-    # * Author: Mayur
-    # * Date: 19/11/2018
-    # * Reviewed By:
-    #
-    # @return dict
-    #    
-    def setup_request(self):
-        pass
-    
-    #    
     # Returns query string generated using given dictionary d
     # 
     # * Author: Mayur
@@ -193,7 +182,7 @@ class HTTPHelper:
         string_to_sign = endpoint + "?" + request_params_str
         return self.generate_signature(string_to_sign, api_secret)
 
-        
+
 
     def urlparse(self):
         if python_version() == 2:
