@@ -31,8 +31,24 @@ class HTTPHelper:
         request_params.update(self.get_base_params(endpoint, request_params))
         qs = self.dict_to_urlencoded(request_params) 
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=15 ) 
+        response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=15, verify=self.verify_required() ) 
         return response.json()
+
+
+    #    
+    # Check if verify required for requests
+    # 
+    # * Author: Mayur
+    # * Date: 19/11/2018
+    # * Reviewed By:
+    #
+    # @return dict
+    #  
+    def verify_required(self):
+        if self.urlparse()(self.api_base_url).scheme == "http":
+            return True
+        return True             
+            
 
     #    
     # Send get request to specified endpoint with given request params 
@@ -177,5 +193,12 @@ class HTTPHelper:
         string_to_sign = endpoint + "?" + request_params_str
         return self.generate_signature(string_to_sign, api_secret)
 
+        
 
+    def urlparse(self):
+        if python_version() == 2:
+            import urlparse
+            return urlparse.urlparse
+        else:
+            return urllib.parse.urlparse
 
