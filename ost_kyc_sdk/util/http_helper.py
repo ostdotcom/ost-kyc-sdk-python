@@ -32,7 +32,10 @@ class HTTPHelper:
         qs = self.dict_to_urlencoded(request_params) 
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=15, verify=self.verify_required() ) 
-        return response.json()
+        try:
+            return response.json()
+        except:
+            return {"success":False,"err":{"code":"SOMETHING_WENT_WRONG","internal_id":"SDK(SOMETHING_WENT_WRONG)","msg":"","error_data":[]}}
 
 
     #    
@@ -63,7 +66,11 @@ class HTTPHelper:
         request_params.update(self.get_base_params(endpoint, request_params))
         qs = self.dict_to_urlencoded(request_params)
         response = requests.get(self.get_api_url(endpoint) + "?" + qs, timeout=15 )
-        return response.json()
+        try:
+            return response.json()
+        except:
+            return {"success":False,"err":{"code":"SOMETHING_WENT_WRONG","internal_id":"SDK(SOMETHING_WENT_WRONG)","msg":"","error_data":[]}}
+
 
     #    
     # Get base params required for each request
@@ -95,7 +102,7 @@ class HTTPHelper:
         return self.api_base_url + endpoint
 
  
-    # 
+    #    
     # Returns query string generated using given dictionary d
     # 
     # * Author: Mayur
@@ -141,7 +148,7 @@ class HTTPHelper:
     # 
     def generate_signature(self, string_to_sign, api_secret=None):
         api_secret = api_secret.encode('utf-8') if api_secret else  self.api_secret.encode('utf-8') 
-        string_to_sign = string_to_sign.replace('~', '%7E')
+        string_to_sign = string_to_sign.replace('~', '%7E') 
         return hmac.new(api_secret, string_to_sign.encode('utf-8'),  hashlib.sha256).hexdigest()
 
     #    

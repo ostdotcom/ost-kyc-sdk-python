@@ -1,12 +1,13 @@
 from ost_kyc_sdk.services import Services
 from config import Config
 from ost_kyc_sdk.util.http_helper import HTTPHelper
+import json
 import time
 import unittest
 
 class TestStringMethods(unittest.TestCase):
-
     kyc_sdk = Services({'api_key': Config.API_KEY, 'api_secret': Config.API_SECRET, 'api_base_url': Config.API_BASE_URL})
+   
     def test_signature(self):
         http_helper_obj = HTTPHelper({})
         generated_signature = http_helper_obj.get_signature_for_test(Config.test_obj_for_signature, Config.test_endpoint, Config.API_SECRET)    
@@ -27,3 +28,4 @@ class TestStringMethods(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    
