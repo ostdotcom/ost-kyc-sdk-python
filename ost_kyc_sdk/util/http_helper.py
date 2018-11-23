@@ -28,8 +28,8 @@ class HTTPHelper:
     # @return dict
     #    
     def send_post_request(self, endpoint, request_params):
-        request_params.update(self.get_base_params(endpoint, request_params))
-        qs = self.dict_to_urlencoded(request_params) 
+        qs = self.get_query_string_with_base_params(endpoint, request_params)
+        qs = self.urlparse()(qs).query
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=15, verify=self.verify_required() ) 
         try:
@@ -63,9 +63,8 @@ class HTTPHelper:
     # @return dict
     #        
     def send_get_request(self, endpoint, request_params):
-        request_params.update(self.get_base_params(endpoint, request_params))
-        qs = self.dict_to_urlencoded(request_params)
-        response = requests.get(self.get_api_url(endpoint) + "?" + qs, timeout=15 )
+        qs = self.get_query_string_with_base_params(endpoint, request_params)
+        response = requests.get(self.api_base_url + qs, timeout=15 )
         try:
             return response.json()
         except:
@@ -73,22 +72,25 @@ class HTTPHelper:
 
 
     #    
-    # Get base params required for each request
+    # Generates query string with base params in it
     # 
     # * Author: Mayur
     # * Date: 19/11/2018
     # * Reviewed By:
     #
-    # @return dict
+    # @return string 
     # 
-    def get_base_params(self, endpoint, request_params):
+    def get_query_string_with_base_params(self, endpoint, request_params):
         request_timestamp = int(time.time())
         request_params.update({"request_timestamp": request_timestamp, "api_key": self.api_key})
         request_params_str = self.dict_to_urlencoded(request_params)
         string_to_sign = endpoint + "?" + request_params_str
         signature = self.generate_signature(string_to_sign)
-        return {"request_timestamp": request_timestamp, "signature": signature, "api_key": self.api_key} 
-    
+        return string_to_sign + "&signature=" + signature
+
+
+
+
     #    
     # Get api url base_url + endpoint 
     # 
