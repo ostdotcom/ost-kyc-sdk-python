@@ -1,2 +1,2 @@
 from .services import Services
-name = "kyc-sdk-python"
+name = "ost_kyc_sdk_python"

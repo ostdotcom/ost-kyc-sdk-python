@@ -17,7 +17,7 @@ To use this python package, developers will need to:
 Install OST KYC Python SDK
 
 ```bash
-> pip install ost_kyc_sdk
+> pip install ost_kyc_sdk_python
 ```
 
 ## Example Usage
@@ -25,14 +25,14 @@ Install OST KYC Python SDK
 Require the SDK:
 
 ```python
-import ost_kyc_sdk
+import ost_kyc_sdk_python
 ```
 
 Initialize the SDK object:
 
 ```python
 // the latest valid API endpoint is "https://kyc.sandboxost.com", this may change in the future
-kyc_sdk = ost_kyc_sdk.Services({'api_key': <api_key>, 'api_secret': <api_secret>, 'api_base_url': <api_secret>})
+kyc_sdk = ost_kyc_sdk_python.Services({'api_key': <api_key>, 'api_secret': <api_secret>, 'api_base_url': <api_secret>})
 ```
 
 ### Users Module 
