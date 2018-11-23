@@ -4,6 +4,7 @@ import requests
 import time
 import json
 from .python_version import python_version
+import re
 
 #
 # HTTPHelper class used by SDK services to communicate with given endpoints
@@ -150,7 +151,7 @@ class HTTPHelper:
     # 
     def generate_signature(self, string_to_sign, api_secret=None):
         api_secret = api_secret.encode('utf-8') if api_secret else  self.api_secret.encode('utf-8') 
-        string_to_sign = string_to_sign.replace('~', '%7E') 
+        string_to_sign = self.multisub(string_to_sign)
         return hmac.new(api_secret, string_to_sign.encode('utf-8'),  hashlib.sha256).hexdigest()
 
     #    
@@ -192,11 +193,34 @@ class HTTPHelper:
         return self.generate_signature(string_to_sign, api_secret)
 
 
-
+       #    
+    # Return function compatible with both Python 2 and Python 3
+    # 
+    # * Author: Mayur
+    # * Date: 22/11/2018
+    # * Reviewed By:
+    #
+    # @return function
+    # 
     def urlparse(self):
         if python_version() == 2:
             import urlparse
             return urlparse.urlparse
         else:
             return urllib.parse.urlparse
+
+    # Simultaneously perform all substitutions on the subject string.
+    # 
+    # * Author: Mayur
+    # * Date: 22/11/2018
+    # * Reviewed By:
+    #
+    # @return str
+    # 
+    def multisub(self, subject):
+        subs = [('~', '%7E')]
+        pattern = '|'.join('(%s)' % re.escape(p) for p, s in subs)
+        substs = [s for p, s in subs]
+        replace = lambda m: substs[m.lastindex - 1]
+        return re.sub(pattern, replace, subject)        
 
