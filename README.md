@@ -38,7 +38,7 @@ kyc_sdk = ost_kyc_sdk_python.Services({'api_key': <api_key>, 'api_secret': <api_
 ### Users Module 
 
 ```python
-users_service = kyc_sdk.services.users;
+users_service = kyc_sdk.services.users
 ```
 
 Create a new user:
@@ -85,7 +85,7 @@ print (r)
 Get Users KYC
 
 ```python
-r = users_kyc_service.get({id:11003})
+r = users_kyc_service.get({'user_id':11003})
 print (r)
 ```
 
@@ -118,7 +118,7 @@ print (r)
 ### Users KYC details Module 
 
 ```python
-users_kyc_details_service = kyc_sdk.services.users_kyc_details;
+users_kyc_details_service = kyc_sdk.services.users_kyc_details
 ```
 
 Get user's kyc details
@@ -131,13 +131,13 @@ print (r)
 ### Validation Module 
     
 ```python
-validator_service = kyc_sdk.services.validators;
+validator_service = kyc_sdk.services.validators
 ```
 
 Verify ethereum address
 
 ```python
- r = validator_service.verify_ethereum_address({ethereum_address: '0x32be343b94f860124dc4fee278fdcbd38c102d88'})
+ r = validator_service.verify_ethereum_address({'ethereum_address': '0x32be343b94f860124dc4fee278fdcbd38c102d88'})
  print (r)
  
  ```

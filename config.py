@@ -26,4 +26,6 @@ class Config:
     }                
     test_endpoint = '/api/v2/users'            
     GENERATED_SIGNATURE = "c42188c53bfdf84e542a0a9c0a78d19c9f497c61e816f169e1907bc98477eb82"
+    USER_ID = os.environ['USER_ID']
+    
 

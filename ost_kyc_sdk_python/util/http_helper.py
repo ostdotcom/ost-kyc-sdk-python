@@ -32,12 +32,13 @@ class HTTPHelper:
         qs = self.get_query_string_with_base_params(endpoint, request_params)
         qs = self.urlparse()(qs).query
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-        response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=15, verify=self.verify_required() ) 
         try:
-            return response.json()
-        except:
+            response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=15, verify=self.verify_required() )
+            return response.json() 
+        except requests.exceptions.Timeout:
+            return {"success":False,"err":{"code":"TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}               
+        except Exception:
             return {"success":False,"err":{"code":"SOMETHING_WENT_WRONG","internal_id":"SDK(SOMETHING_WENT_WRONG)","msg":"","error_data":[]}}
-
 
     #    
     # Check if verify required for requests
@@ -65,11 +66,14 @@ class HTTPHelper:
     #        
     def send_get_request(self, endpoint, request_params):
         qs = self.get_query_string_with_base_params(endpoint, request_params)
-        response = requests.get(self.api_base_url + qs, timeout=15 )
         try:
+            response = requests.get(self.api_base_url + qs, timeout=15)
             return response.json()
-        except:
-            return {"success":False,"err":{"code":"SOMETHING_WENT_WRONG","internal_id":"SDK(SOMETHING_WENT_WRONG)","msg":"","error_data":[]}}
+        except requests.exceptions.Timeout:
+                return {"success":False,"err":{"code":"TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}           
+        except Exception:
+            return {"success":False,"err":{"code":"SOMETHING_WENT_WRONG","internal_id":"SDK(SOMETHING_WENT_WRONG)","msg":"","error_data":[]}}           
+        
 
 
     #    
@@ -218,6 +222,7 @@ class HTTPHelper:
     # @return str
     # 
     def multisub(self, subject):
+        # tuple[1] is expected value for character tuple[0]
         subs = [('~', '%7E')]
         pattern = '|'.join('(%s)' % re.escape(p) for p, s in subs)
         substs = [s for p, s in subs]
