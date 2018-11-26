@@ -32,7 +32,10 @@ Initialize the SDK object:
 
 ```python
 // the latest valid API endpoint is "https://kyc.sandboxost.com", this may change in the future
-kyc_sdk = ost_kyc_sdk_python.Services({'api_key': <api_key>, 'api_secret': <api_secret>, 'api_base_url': <api_secret>})
+kyc_sdk = ost_kyc_sdk_python.Services({'api_key': <api_key>, 'api_secret': <api_secret>, 'api_base_url': <api_secret>, 
+'config': {'timeout': <desired_timeout_in_secs> }})
+
+Here timeout for requests can be passed inside config, timeout is in seconds. 
 ```
 
 ### Users Module 

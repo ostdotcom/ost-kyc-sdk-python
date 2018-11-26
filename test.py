@@ -6,7 +6,8 @@ from ost_kyc_sdk_python.services import Services
 from ost_kyc_sdk_python.util.http_helper import HTTPHelper
 
 class TestStringMethods(unittest.TestCase):
-    kyc_sdk = Services({'api_key': Config.API_KEY, 'api_secret': Config.API_SECRET, 'api_base_url': Config.API_BASE_URL})
+    kyc_sdk = Services({'api_key': Config.API_KEY, 'api_secret': Config.API_SECRET, 'api_base_url': Config.API_BASE_URL, 
+    'config':{'timeout':10}})
     users_service = kyc_sdk.services.users
     users_kyc_service = kyc_sdk.services.users_kyc
     users_kyc_details_service = kyc_sdk.services.users_kyc_details

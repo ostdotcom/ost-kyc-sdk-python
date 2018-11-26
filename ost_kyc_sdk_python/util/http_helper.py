@@ -18,6 +18,8 @@ class HTTPHelper:
         self.api_key = params.get('api_key')
         self.api_secret = params.get('api_secret')
         self.api_base_url = params.get('api_base_url')
+        self.config = params.get('config') or {}
+        self.timeout = self.config.get('timeout') or 15
         self.urlencode = urllib.urlencode  if python_version() == 2 else urllib.parse.urlencode    
 
     # 
@@ -33,7 +35,7 @@ class HTTPHelper:
         qs = self.urlparse()(qs).query
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         try:
-            response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=15, verify=self.verify_required() )
+            response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=self.timeout, verify=self.verify_required() )
             return response.json() 
         except requests.exceptions.Timeout:
             return {"success":False,"err":{"code":"TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}               
@@ -67,7 +69,7 @@ class HTTPHelper:
     def send_get_request(self, endpoint, request_params):
         qs = self.get_query_string_with_base_params(endpoint, request_params)
         try:
-            response = requests.get(self.api_base_url + qs, timeout=15)
+            response = requests.get(self.api_base_url + qs, timeout=self.timeout)
             return response.json()
         except requests.exceptions.Timeout:
                 return {"success":False,"err":{"code":"TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}           
