@@ -4,9 +4,9 @@ The official [KYC SDK](https://dev.ost.com/docs/kyc/index.html).
 
 ## Requirements
 
-To use this python package, developers will need to:
-1. Be a client of OST KYC
-2. Obtain an API Key and API Secret from OST KYC.
+To use this node module, developers will need to:
+1. Login on [https://kyc.ost.com/admin/login](https://kyc.ost.com/admin/login).
+2. Obtain an API Key and API Secret from [https://kyc.ost.com/admin/settings/developer-integrations](https://kyc.ost.com/admin/settings/developer-integrations).
 
 ## Documentation
 
@@ -35,7 +35,7 @@ Initialize the SDK object:
 kyc_sdk = ost_kyc_sdk_python.Services({'api_key': <api_key>, 'api_secret': <api_secret>, 'api_base_url': <api_secret>, 
 'config': {'timeout': <desired_timeout_in_secs> }})
 
-Here timeout for requests can be passed inside config, timeout is in seconds. 
+Here timeout for requests can be passed inside config, timeout is in seconds (default is 15 secs). 
 ```
 
 ### Users Module 
