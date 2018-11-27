@@ -1,3 +1,4 @@
+import os
 import json
 import time
 import unittest
@@ -26,6 +27,9 @@ class TestStringMethods(unittest.TestCase):
         r = self.users_service.create(
             test_obj
         )
+        DEBUG = os.environ.get('OST_KYC_SDK_DEBUG')
+        if DEBUG:
+            print (r)
         self.assertEqual(r['success'], True, "Create new user failed")
 
     def test_get_user(self):     
