@@ -137,17 +137,17 @@ class HTTPHelper:
     # @return dict
     #  
     def sort_dict(self, od):
-        res = collections.OrderedDict()
-        for k, v in sorted(od.items()):
-            if isinstance(v, dict):
-                res[k] = self.sort_dict(v)
-            elif isinstance(v, list):
-                for i, val in enumerate(v):
-                    if (isinstance(val, list) or isinstance(val, dict)):
-                        v[i] = self.sort_dict(v[i])     
-                res[k] = v        
-            else:
-                res[k] = v            
+        res = None
+        if  isinstance(od, dict):
+            res = collections.OrderedDict()
+            for k, v in sorted(od.items()):
+                    res[k] = self.sort_dict(v)
+        elif isinstance(od, list):
+            res = []
+            for val in (od):
+                res.append(self.sort_dict(val))      
+        else:
+            res = od
         return res
      
 
