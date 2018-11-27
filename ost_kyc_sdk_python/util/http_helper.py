@@ -156,8 +156,11 @@ class HTTPHelper:
     # @return str
     # 
     def generate_signature(self, string_to_sign, api_secret=None):
+        DEBUG = os.environ.get('OST_KYC_SDK_DEBUG')
         api_secret = api_secret.encode('utf-8') if api_secret else  self.api_secret.encode('utf-8') 
         string_to_sign = self.multisub(string_to_sign)
+        if DEBUG:
+            print (string_to_sign)
         return hmac.new(api_secret, string_to_sign.encode('utf-8'),  hashlib.sha256).hexdigest()
 
     #    
@@ -194,11 +197,8 @@ class HTTPHelper:
     # @return str
     # 
     def get_signature_for_test(self, di, endpoint, api_secret):
-        DEBUG = os.environ.get('OST_KYC_SDK_DEBUG')
         request_params_str = self.dict_to_urlencoded(di)
         string_to_sign = endpoint + "?" + request_params_str
-        if DEBUG:
-            print (string_to_sign)
         return self.generate_signature(string_to_sign, api_secret)
 
 
