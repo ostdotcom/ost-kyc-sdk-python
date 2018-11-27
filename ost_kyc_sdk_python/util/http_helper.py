@@ -143,12 +143,11 @@ class HTTPHelper:
                 res[k] = self.sort_dict(v)
             if isinstance(v, list):
                 for i, val in enumerate(v):
-                    v[i] = self.sort_dict(v[i])
+                    if (isinstance(val, list) or isinstance(val, dict)):
+                        v[i] = self.sort_dict(v[i])
                 res[k] = v        
             else:
-                res[k] = v
-        print ("!!!!!!!!!!!!!!!!!!!!!!!!!!!!")                    
-        print (res)                       
+                res[k] = v            
         return res
      
 
