@@ -60,13 +60,13 @@ class TestStringMethods(unittest.TestCase):
         r = self.users_kyc_details_service.get({'user_id':Config.USER_ID})
         self.assertEqual(r['success'], True, "get users kyc details failed")
 
-    # def test_validate_eth_address(self):
-    #     r = self.validator_service.verify_ethereum_address({'ethereum_address': '0x32be343b94f860124dc4fee278fdcbd38c102d88'})
-    #     self.assertEqual(r['success'], True, "Ethereum address is correct")
+    def test_validate_eth_address(self):
+        r = self.validator_service.verify_ethereum_address({'ethereum_address': '0x32be343b94f860124dc4fee278fdcbd38c102d88'})
+        self.assertEqual(r['success'], True, "Ethereum address is correct")
 
     def test_signature(self):
         http_helper_obj = HTTPHelper({})
-        generated_signature = http_helper_obj.get_signature_for_test(Config.test_obj_for_signature, Config.test_endpoint, Config.API_SECRET)    
+        generated_signature = http_helper_obj.get_signature_for_test(Config.test_obj_for_signature, Config.test_endpoint, Config.API_SECRET_TO_TEST_SIGNATURE)    
         self.assertEqual(Config.GENERATED_SIGNATURE, generated_signature, 'Generated signature and given signature should be matched')
 
 if __name__ == '__main__':
