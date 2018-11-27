@@ -141,10 +141,10 @@ class HTTPHelper:
         for k, v in sorted(od.items()):
             if isinstance(v, dict):
                 res[k] = self.sort_dict(v)
-            if isinstance(v, list):
+            elif isinstance(v, list):
                 for i, val in enumerate(v):
                     if (isinstance(val, list) or isinstance(val, dict)):
-                        v[i] = self.sort_dict(v[i])
+                        v[i] = self.sort_dict(v[i])     
                 res[k] = v        
             else:
                 res[k] = v            
