@@ -1,3 +1,4 @@
+import os
 import hashlib, hmac, urllib
 import collections
 import requests
@@ -56,7 +57,6 @@ class HTTPHelper:
             return True
         return True             
             
-
     #    
     # Send get request to specified endpoint with given request params 
     # 
@@ -194,8 +194,11 @@ class HTTPHelper:
     # @return str
     # 
     def get_signature_for_test(self, di, endpoint, api_secret):
+        DEBUG = os.environ.get('OST_KYC_SDK_DEBUG')
         request_params_str = self.dict_to_urlencoded(di)
         string_to_sign = endpoint + "?" + request_params_str
+        if DEBUG:
+            print (string_to_sign)
         return self.generate_signature(string_to_sign, api_secret)
 
 
