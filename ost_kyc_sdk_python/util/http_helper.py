@@ -38,7 +38,7 @@ class HTTPHelper:
             response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=self.timeout, verify=self.verify_required() )
             return response.json() 
         except requests.exceptions.Timeout:
-            return {"success":False,"err":{"code":"GATEWAY_TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}               
+            return {"success":False,"err":{"code":"TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}            
         except Exception:
             return {"success":False,"err":{"code":"SOMETHING_WENT_WRONG","internal_id":"SDK(SOMETHING_WENT_WRONG)","msg":"","error_data":[]}}
 

@@ -7,7 +7,7 @@ from ost_kyc_sdk_python.util.http_helper import HTTPHelper
 
 class TestStringMethods(unittest.TestCase):
     kyc_sdk = Services({'api_key': Config.API_KEY, 'api_secret': Config.API_SECRET, 'api_base_url': Config.API_BASE_URL, 
-    'config':{'timeout':10}})
+    'config':{'timeout':10   }})
     users_service = kyc_sdk.services.users
     users_kyc_service = kyc_sdk.services.users_kyc
     users_kyc_details_service = kyc_sdk.services.users_kyc_details
@@ -60,9 +60,9 @@ class TestStringMethods(unittest.TestCase):
         r = self.users_kyc_details_service.get({'user_id':Config.USER_ID})
         self.assertEqual(r['success'], True, "get users kyc details failed")
 
-    def test_validate_eth_address(self):
-        r = self.validator_service.verify_ethereum_address({'ethereum_address': '0x32be343b94f860124dc4fee278fdcbd38c102d88'})
-        self.assertEqual(r['success'], True, "Ethereum address is correct")
+    # def test_validate_eth_address(self):
+    #     r = self.validator_service.verify_ethereum_address({'ethereum_address': '0x32be343b94f860124dc4fee278fdcbd38c102d88'})
+    #     self.assertEqual(r['success'], True, "Ethereum address is correct")
 
     def test_signature(self):
         http_helper_obj = HTTPHelper({})
