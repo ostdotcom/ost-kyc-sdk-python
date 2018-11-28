@@ -5,6 +5,7 @@ import unittest
 from config import Config
 from ost_kyc_sdk_python.services import Services
 from ost_kyc_sdk_python.util.http_helper import HTTPHelper
+from ost_kyc_sdk_python.util.python_version import full_python_version
 
 class TestStringMethods(unittest.TestCase):
     kyc_sdk = Services({'api_key': Config.API_KEY, 'api_secret': Config.API_SECRET, 'api_base_url': Config.API_BASE_URL, 
@@ -23,7 +24,7 @@ class TestStringMethods(unittest.TestCase):
 
     def test_create_new_user(self):
         test_obj = Config.test_obj_for_requests
-        test_obj.update(email='testuser+'+ str(int(time.time())) +'@ost.com')
+        test_obj.update(email='testuser+'+ str(int(time.time())) + '_' + full_python_version() +'@ost.com')
         r = self.users_service.create(
             test_obj
         )
