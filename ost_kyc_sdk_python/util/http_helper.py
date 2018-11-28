@@ -54,7 +54,7 @@ class HTTPHelper:
     #  
     def verify_required(self):
         if self.urlparse()(self.api_base_url).scheme == "http":
-            return True
+            return False
         return True             
             
     #    
