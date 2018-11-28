@@ -21,7 +21,8 @@ class HTTPHelper:
         self.api_base_url = params.get('api_base_url')
         self.config = params.get('config') or {}
         self.timeout = self.config.get('timeout') or 15
-        self.urlencode = urllib.urlencode  if python_version() == 2 else urllib.parse.urlencode    
+        self.urlencode = urllib.urlencode  if python_version() == 2 else urllib.parse.urlencode
+        self.urlparse()    
 
     # 
     # Send post request to specified endpoint with given request params 
@@ -33,7 +34,7 @@ class HTTPHelper:
     #    
     def send_post_request(self, endpoint, request_params):
         qs = self.get_query_string_with_base_params(endpoint, request_params)
-        qs = self.urlparse()(qs).query
+        qs = self.parse_url(qs).query
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         try:
             response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=self.timeout, verify=self.verify_required() )
@@ -53,7 +54,7 @@ class HTTPHelper:
     # @return dict
     #  
     def verify_required(self):
-        if self.urlparse()(self.api_base_url).scheme == "http":
+        if self.parse_url(self.api_base_url).scheme == "http":
             return False
         return True             
             
@@ -219,9 +220,9 @@ class HTTPHelper:
     def urlparse(self):
         if python_version() == 2:
             import urlparse
-            return urlparse.urlparse
+            self.parse_url = urlparse.urlparse
         else:
-            return urllib.parse.urlparse
+            self.parse_url = urllib.parse.urlparse
 
     # Simultaneously perform all substitutions on the subject string.
     # 
