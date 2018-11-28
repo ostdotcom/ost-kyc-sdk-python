@@ -3,6 +3,6 @@ def python_version():
     return sys.version_info.major
 
 def full_python_version():
-    sys.version.split(' ')[0]
+    return sys.version.split(' ')[0]
 
 
