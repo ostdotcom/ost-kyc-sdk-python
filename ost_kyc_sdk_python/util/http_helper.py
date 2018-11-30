@@ -41,7 +41,7 @@ class HTTPHelper:
             return response.json() 
         except requests.exceptions.Timeout:
             return {"success":False,"err":{"code":"TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}            
-        except Exception:
+        except ValueError:
             return {"success":False,"err":{"code":"SOMETHING_WENT_WRONG","internal_id":"SDK(SOMETHING_WENT_WRONG)","msg":"","error_data":[]}}
 
     #    
@@ -73,8 +73,8 @@ class HTTPHelper:
             response = requests.get(self.api_base_url + qs, timeout=self.timeout)
             return response.json()
         except requests.exceptions.Timeout:
-                return {"success":False,"err":{"code":"TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}           
-        except Exception:
+            return {"success":False,"err":{"code":"TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}           
+        except ValueError:
             return {"success":False,"err":{"code":"SOMETHING_WENT_WRONG","internal_id":"SDK(SOMETHING_WENT_WRONG)","msg":"","error_data":[]}}           
         
 
