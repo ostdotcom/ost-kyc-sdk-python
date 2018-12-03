@@ -1,0 +1,24 @@
+language: python
+branches:
+  only:
+  - master
+  - develop
+notifications:
+  email:
+    recipients:
+      - ci.report@ost.com
+    on_success: always
+    on_failure: always
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  # PyPy versions
+  - "pypy3.5"
+# command to install dependencies
+install:
+  - python setup.py install
+# command to run tests
+script:
+  - python test.py
