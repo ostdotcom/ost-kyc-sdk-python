@@ -1,3 +1,4 @@
+
 import os
 import hashlib, hmac, urllib
 import collections
@@ -38,7 +39,10 @@ class HTTPHelper:
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         try:
             response = requests.post (self.get_api_url(endpoint), data = qs, headers=headers, timeout=self.timeout, verify=self.verify_required() )
-            return response.json() 
+            if python_version() == 2:
+                return self.byteify(response.json())
+            else:
+                return response.json()
         except requests.exceptions.Timeout:
             return {"success":False,"err":{"code":"TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}            
         except ValueError:
@@ -71,13 +75,34 @@ class HTTPHelper:
         qs = self.get_query_string_with_base_params(endpoint, request_params)
         try:
             response = requests.get(self.api_base_url + qs, timeout=self.timeout)
-            return response.json()
+            if python_version() == 2:
+                return self.byteify(response.json())
+            else:
+                return response.json()    
         except requests.exceptions.Timeout:
             return {"success":False,"err":{"code":"TIMEOUT","internal_id":"TIMEOUT_ERROR","msg":"","error_data":[]}}           
         except ValueError:
             return {"success":False,"err":{"code":"SOMETHING_WENT_WRONG","internal_id":"SDK(SOMETHING_WENT_WRONG)","msg":"","error_data":[]}}           
-        
 
+
+        
+    # Byteify encodes input to utf-8 encoding
+    # * Author: Mayur
+    # * Date: 04/12/2018
+    # * Reviewed By:
+    #
+    # @return same as input
+    #       
+    def byteify(self, input):
+        if isinstance(input, dict):
+            return {self.byteify(key): self.byteify(value)
+                    for key, value in input.iteritems()}
+        elif isinstance(input, list):
+            return [self.byteify(element) for element in input]
+        elif isinstance(input, unicode):
+            return input.encode('utf-8')
+        else:
+            return input
 
     #    
     # Generates query string with base params in it
