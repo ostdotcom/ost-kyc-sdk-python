@@ -11,12 +11,13 @@ class Base:
     #
     # Raise Exception
     #   
-    def raise_exception_if_param_absent(self, params, parameter):
+    def raise_exception_if_param_absent_or_invalid(self, params, parameter):
         param = params.get(parameter) 
         if  type(params.get(parameter)) == str:
             param = param.strip()       
-        if not param and not str(param) == '0': 
-            raise Exception("missing "+ parameter)
+        if (not param and not str(param) == '0') or not str(param).isdigit(): 
+            raise Exception("missing  or invalid "+ parameter)
+
 
 
 

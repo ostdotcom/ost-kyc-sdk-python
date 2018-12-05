@@ -13,7 +13,7 @@ class UsersKYC(Base):
     # Return dict
     #      
     def submit_kyc(self, params):
-        self.raise_exception_if_param_absent(params, 'user_id')
+        self.raise_exception_if_param_absent_or_invalid(params, 'user_id')
         endpoint =  self.endpoint + "/" + str(params.get('user_id'))
         self.delete_key_from_params(params, 'user_id')
         return self.http_helper.send_post_request(endpoint, params)
@@ -27,7 +27,7 @@ class UsersKYC(Base):
     # Return dict
     # 
     def get(self, params={}):
-        self.raise_exception_if_param_absent(params, 'user_id')
+        self.raise_exception_if_param_absent_or_invalid(params, 'user_id')
         endpoint =  self.endpoint + "/" + str(params.get('user_id'))
         self.delete_key_from_params(params, 'user_id')   
         return self.http_helper.send_get_request(endpoint, params)  
