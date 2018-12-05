@@ -144,4 +144,5 @@ Verify ethereum address
  print (r)
  
  ```
- 
+
+ Note: If user want to use non english characters in Python 2, write ```# -*- coding: utf-8 -*- ``` at the beginning of the file.
