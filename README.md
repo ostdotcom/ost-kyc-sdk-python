@@ -1,6 +1,6 @@
 ## OST KYC Python SDK
 
-The official [KYC SDK](https://dev.ost.com/docs/kyc/index.html).
+The official [OST KYC SDK](https://dev.ost.com/docs/kyc/index.html).
 
 ## Requirements
 
