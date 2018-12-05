@@ -37,6 +37,26 @@ class TestStringMethods(unittest.TestCase):
         r = self.users_service.get({'id': Config.USER_ID})
         self.assertEqual(r['success'], True, "Get user is failed")
 
+    def test_get_user_with_id_zero(self):
+        r = self.users_service.get({'id': 0})
+        self.assertEqual(r['success'], False, "Get user with id 0 failed")
+
+    def test_get_user_with_id_blank(self):
+        try:
+            r = self.users_service.get({'id': '  '})
+            self.fail("test get user with blank is failed")
+        except Exception as e:
+            self.assertEqual(str(e), 'missing  or invalid id', "test get user with blank is failed") 
+
+    def test_get_user_with_id_invalid(self):
+        try:
+            r = self.users_service.get({'id': 'BB&#@@#^@&#^@#^'})
+            self.fail("test get user with blank is failed")
+        except Exception as e:
+            self.assertEqual(str(e), 'missing  or invalid id', "test get user with blank is failed")            
+
+
+
     def test_get_user_list(self):
         r = self.users_service.list()
         self.assertEqual(r['success'], True, "Get users list is failed")
