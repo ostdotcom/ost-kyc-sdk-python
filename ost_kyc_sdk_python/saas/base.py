@@ -14,13 +14,13 @@ class Base:
     #   
     def raise_exception_if_param_absent_or_invalid(self, params, parameter):
         param = params.get(parameter) 
-        if  type(params.get(parameter)) == str:
+        if  type(param) == str:
             param = param.strip()          
         if (not param and not str(param) == '0'): 
-            raise Exception("missing  or invalid "+ parameter)
+            raise Exception("missing "+ parameter)
         is_matched = re.match("^[a-z\d\-\.]+$", str(param), re.IGNORECASE )
         if not is_matched:     
-            raise Exception("missing  or invalid "+ parameter)     
+            raise Exception("invalid "+ parameter)     
 
 
 
