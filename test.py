@@ -46,14 +46,14 @@ class TestStringMethods(unittest.TestCase):
             r = self.users_service.get({'id': '  '})
             self.fail("test get user with blank is failed")
         except Exception as e:
-            self.assertEqual(str(e), 'missing  or invalid id', "test get user with blank is failed") 
+            self.assertEqual(str(e), 'missing id', "test get user with blank is failed") 
 
     def test_get_user_with_id_invalid(self):
         try:
             r = self.users_service.get({'id': 'BB&#@@#^@&#^@#^'})
             self.fail("test get user with blank is failed")
         except Exception as e:
-            self.assertEqual(str(e), 'missing  or invalid id', "test get user with blank is failed")            
+            self.assertEqual(str(e), 'invalid id', "test get user with blank is failed")            
 
 
 
