@@ -1,3 +1,4 @@
+import re
 from ..util.http_helper import HTTPHelper
 class Base:
     def __init__(self, params):
@@ -11,12 +12,16 @@ class Base:
     #
     # Raise Exception
     #   
-    def raise_exception_if_param_absent(self, params, parameter):
+    def raise_exception_if_param_absent_or_invalid(self, params, parameter):
         param = params.get(parameter) 
-        if  type(params.get(parameter)) == str:
-            param = param.strip()       
-        if not param and not str(param) == '0': 
+        if  type(param) == str:
+            param = param.strip()          
+        if (not param and not str(param) == '0'): 
             raise Exception("missing "+ parameter)
+        is_matched = re.match("^[a-z\d\-\.]+$", str(param), re.IGNORECASE )
+        if not is_matched:     
+            raise Exception("invalid "+ parameter)     
+
 
 
 

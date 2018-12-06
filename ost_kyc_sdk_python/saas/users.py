@@ -26,7 +26,7 @@ class Users(Base):
     # Return dict
     # 
     def get(self, params={}):
-        self.raise_exception_if_param_absent(params, 'id')
+        self.raise_exception_if_param_absent_or_invalid(params, 'id')
         endpoint =  self.endpoint + "/" + str(params.get('id'))
         self.delete_key_from_params(params, 'id')   
         return self.http_helper.send_get_request(endpoint, params)
