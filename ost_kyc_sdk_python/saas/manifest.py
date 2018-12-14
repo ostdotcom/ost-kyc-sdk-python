@@ -10,4 +10,3 @@ class Manifest:
         self.users_kyc = UsersKYC(params)
         self.users_kyc_details = UsersKYCDetails(params)
         self.validators = Validators(params)
-        
