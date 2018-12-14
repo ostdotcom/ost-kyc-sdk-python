@@ -3,6 +3,7 @@ from .users_kyc import UsersKYC
 from .users_kyc_details import UsersKYCDetails
 from .validators import Validators
 
+
 class Manifest:
 
     def __init__(self, params):

@@ -1,5 +1,5 @@
-
 from .base import Base
+
 
 class Users(Base):
     def __init__(self, params):
@@ -15,7 +15,7 @@ class Users(Base):
     # Return dict
     #
     def create(self, params):
-        return self.http_helper.send_post_request(self.endpoint , params)
+        return self.http_helper.send_post_request(self.endpoint, params)
 
     #
     # Get user info
@@ -25,10 +25,10 @@ class Users(Base):
     #
     # Return dict
     #
-    def get(self, params = None):
+    def get(self, params=None):
         params = params or {}
         self.raise_exception_if_param_absent_or_invalid(params, 'id')
-        endpoint =  self.endpoint + "/" + str(params.get('id'))
+        endpoint = self.endpoint + "/" + str(params.get('id'))
         self.delete_key_from_params(params, 'id')
         return self.http_helper.send_get_request(endpoint, params)
 
@@ -40,6 +40,6 @@ class Users(Base):
     #
     # Return dict
     #
-    def list(self, params = None):
+    def list(self, params=None):
         params = params or {}
         return self.http_helper.send_get_request(self.endpoint, params)

@@ -1,4 +1,6 @@
 from .base import Base
+
+
 class UsersKYC(Base):
     def __init__(self, params):
         Base.__init__(self, params)
@@ -14,7 +16,7 @@ class UsersKYC(Base):
     #
     def submit_kyc(self, params):
         self.raise_exception_if_param_absent_or_invalid(params, 'user_id')
-        endpoint =  self.endpoint + "/" + str(params.get('user_id'))
+        endpoint = self.endpoint + "/" + str(params.get('user_id'))
         self.delete_key_from_params(params, 'user_id')
         return self.http_helper.send_post_request(endpoint, params)
 
@@ -26,13 +28,12 @@ class UsersKYC(Base):
     #
     # Return dict
     #
-    def get(self, params = None):
+    def get(self, params=None):
         params = params or {}
         self.raise_exception_if_param_absent_or_invalid(params, 'user_id')
-        endpoint =  self.endpoint + "/" + str(params.get('user_id'))
+        endpoint = self.endpoint + "/" + str(params.get('user_id'))
         self.delete_key_from_params(params, 'user_id')
         return self.http_helper.send_get_request(endpoint, params)
-
 
     #
     # Return list of user's KYC information
@@ -42,6 +43,7 @@ class UsersKYC(Base):
     #
     # Return dict
     #
+
     def list(self, params=None):
         params = params or {}
         return self.http_helper.send_get_request(self.endpoint, params)
@@ -56,7 +58,8 @@ class UsersKYC(Base):
     #
     def get_pre_signed_url_put(self, params):
         suffix = "/pre-signed-urls/for-put"
-        return self.http_helper.send_get_request(self.endpoint + suffix, params)
+        return self.http_helper.send_get_request(
+            self.endpoint + suffix, params)
 
     #
     # Get presigned url for POST request
@@ -68,4 +71,5 @@ class UsersKYC(Base):
     #
     def get_pre_signed_url_post(self, params):
         suffix = "/pre-signed-urls/for-post"
-        return self.http_helper.send_get_request(self.endpoint + suffix, params)
+        return self.http_helper.send_get_request(
+            self.endpoint + suffix, params)
