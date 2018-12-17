@@ -1,10 +1,10 @@
 import os
 import time
 import unittest
-from ost_kyc_sdk_python.config import Config
-from ost_kyc_sdk_python.ost_kyc_sdk_python.services import Services
-from ost_kyc_sdk_python.ost_kyc_sdk_python.util.http_helper import HTTPHelper
-from ost_kyc_sdk_python.ost_kyc_sdk_python.util.python_version import full_python_version
+from config import Config
+from ost_kyc_sdk_python.services import Services
+from ost_kyc_sdk_python.util.http_helper import HTTPHelper
+from ost_kyc_sdk_python.util.python_version import full_python_version
 
 class TestStringMethods(unittest.TestCase):
     kyc_sdk = Services({'api_key': Config.API_KEY,
