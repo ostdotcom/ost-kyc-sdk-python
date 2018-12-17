@@ -104,7 +104,7 @@ class UsersKYC(Base):
     #
     # Return dict
     # 
-    def     (self, params):
+    def email_report_issue (self, params):
         endpoint =  self.endpoint + "/" + str(params.get('user_id')) + '/email/report-issue'
         self.delete_key_from_params(params, 'user_id')
         return self.http_helper.send_post_request(endpoint, params)    
