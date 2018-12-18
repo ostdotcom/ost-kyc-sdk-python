@@ -212,8 +212,8 @@ class HTTPHelper:
             for key in value:
                 d_list.append(self.build_nested_query(value[key], prefix + "[" + key + "]" if prefix else key ))
             return "&".join(filter(None, d_list)) 
-        elif not value:
-            return prefix + '='  
+        elif value == None: # urlencode convert None to string None 
+            return self.urlencode({prefix:''})
         else:
             return self.urlencode({prefix:value})
 
