@@ -240,13 +240,10 @@ class HTTPHelper:
         elif isinstance(value, dict):
             d_list = []
             for key in value:
-                d_list.append(
-                    self.build_nested_query(
-                        value[key],
-                        prefix + "[" + key + "]" if prefix else key))
-            return "&".join(filter(None, d_list))
-        elif not value:
-            return prefix + '='
+                d_list.append(self.build_nested_query(value[key], prefix + "[" + key + "]" if prefix else key ))
+            return "&".join(filter(None, d_list)) 
+        elif value == None: # urlencode convert None to string None 
+            return self.urlencode({prefix:''})
         else:
             return self.urlencode({prefix: value})
 

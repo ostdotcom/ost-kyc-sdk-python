@@ -111,16 +111,33 @@ class TestStringMethods(unittest.TestCase):
             "get presigned url for PUT is failed")
 
     def test_get_pre_signed_url_post(self):
-        result = self.users_kyc_service.get_pre_signed_url_put(
+        result = self.users_kyc_service.get_pre_signed_url_post(
             self.get_presigned_url_obj)
         self.assertEqual(
             result['success'],
             True,
-            "get presigned url for PUT is failed")
+            "get presigned url for POST is failed")
+
+    def test_send_kyc_approve_email(self):
+        r = self.users_kyc_service.email_approve ({'user_id': Config.USER_ID})
+        if (r.get('err')):
+                self.assertEqual(r['err']['code'], 'UNPROCESSABLE_ENTITY', "KYC approve email failed")
+
+    
+    def test_send_kyc_deny_email(self):
+        r = self.users_kyc_service.email_deny ({'user_id': Config.USER_ID})
+        if (r.get('err')):
+            self.assertEqual(r['err']['code'], 'UNPROCESSABLE_ENTITY', "KYC deny email failed")
+
+    
+    def test_send_kyc_report_issue_email(self):
+        r = self.users_kyc_service.email_report_issue ({'user_id': Config.USER_ID})
+        if (r.get('err')):
+            self.assertEqual(r['err']['code'], 'UNPROCESSABLE_ENTITY', "KYC report issue email failed")
 
     def test_get_users_kyc_details(self):
-        result = self.users_kyc_details_service.get({'user_id': Config.USER_ID})
-        self.assertEqual(result['success'], True, "get users kyc details failed")
+        r = self.users_kyc_details_service.get({'user_id':Config.USER_ID, 'ac' : ['dsds', '', None]})
+        self.assertEqual(r['success'], True, "get users kyc details failed")
 
     def test_validate_eth_address(self):
         result = self.validator_service.verify_ethereum_address(

@@ -73,3 +73,47 @@ class UsersKYC(Base):
         suffix = "/pre-signed-urls/for-post"
         return self.http_helper.send_get_request(
             self.endpoint + suffix, params)
+
+
+
+
+    # 
+    # Email KYC approve
+    # * Author: Mayur
+    # * Date: 14/12/2018
+    # * Reviewed By:
+    #
+    # Return dict
+    # 
+    def email_approve(self, params):
+        endpoint =  self.endpoint + "/" + str(params.get('user_id')) + '/email/approve'
+        self.delete_key_from_params(params, 'user_id')
+        return self.http_helper.send_post_request(endpoint, params)    
+        
+    # 
+    # Email KYC deny
+    # * Author: Mayur
+    # * Date: 14/12/2018
+    # * Reviewed By:
+    #
+    # Return dict
+    # 
+    def email_deny(self, params):
+        endpoint =  self.endpoint + "/" + str(params.get('user_id')) + '/email/deny'
+        self.delete_key_from_params(params, 'user_id')
+        return self.http_helper.send_post_request(endpoint, params)    
+        
+
+    #
+    # Email report issue email
+    # * Author: Mayur
+    # * Date: 14/12/2018
+    # * Reviewed By:
+    #
+    # Return dict
+    # 
+    def email_report_issue (self, params):
+        endpoint =  self.endpoint + "/" + str(params.get('user_id')) + '/email/report-issue'
+        self.delete_key_from_params(params, 'user_id')
+        return self.http_helper.send_post_request(endpoint, params)    
+        
