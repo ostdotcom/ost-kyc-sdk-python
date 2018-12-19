@@ -86,6 +86,7 @@ class UsersKYC(Base):
     # Return dict
     # 
     def email_approve(self, params):
+        self.raise_exception_if_param_absent_or_invalid(params, 'user_id')
         endpoint =  self.endpoint + "/" + str(params.get('user_id')) + '/email/approve'
         self.delete_key_from_params(params, 'user_id')
         return self.http_helper.send_post_request(endpoint, params)    
@@ -99,6 +100,7 @@ class UsersKYC(Base):
     # Return dict
     # 
     def email_deny(self, params):
+        self.raise_exception_if_param_absent_or_invalid(params, 'user_id')
         endpoint =  self.endpoint + "/" + str(params.get('user_id')) + '/email/deny'
         self.delete_key_from_params(params, 'user_id')
         return self.http_helper.send_post_request(endpoint, params)    
@@ -113,6 +115,7 @@ class UsersKYC(Base):
     # Return dict
     # 
     def email_report_issue (self, params):
+        self.raise_exception_if_param_absent_or_invalid(params, 'user_id')
         endpoint =  self.endpoint + "/" + str(params.get('user_id')) + '/email/report-issue'
         self.delete_key_from_params(params, 'user_id')
         return self.http_helper.send_post_request(endpoint, params)    
