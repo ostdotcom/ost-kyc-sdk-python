@@ -121,7 +121,7 @@ print (r)
 Send KYC approve email
 
 ```python
-r = self.users_kyc_service.email_approve({'user_id': 11003})
+r = users_kyc_service.email_approve({'user_id': 11003})
 print (r)
 
 ```
@@ -130,7 +130,7 @@ print (r)
 Send KYC deny email
 
 ```python
-r = self.users_kyc_service.email_deny({'user_id': 11003})
+r = users_kyc_service.email_deny({'user_id': 11003})
 print (r)
 
 ```
@@ -138,7 +138,7 @@ print (r)
 Send KYC report issue email
 
 ```python
-r = self.users_kyc_service.email_report_issue({'user_id': 11003})
+r = users_kyc_service.email_report_issue({'user_id': 11003})
 print (r)
 
 ```
