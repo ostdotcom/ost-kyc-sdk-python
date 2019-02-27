@@ -118,6 +118,33 @@ r = users_kyc_service.get_pre_signed_url_post ({'files': {
 print (r)
 ```
 
+Send KYC approve email
+
+```python
+r = users_kyc_service.email_approve({'user_id': 11003})
+print (r)
+
+```
+
+
+Send KYC deny email
+
+```python
+r = users_kyc_service.email_deny({'user_id': 11003})
+print (r)
+
+```
+
+Send KYC report issue email
+
+```python
+r = users_kyc_service.email_report_issue({'user_id': 11003})
+print (r)
+
+```
+
+
+
 ### Users KYC details Module 
 
 ```python
